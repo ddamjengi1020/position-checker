@@ -4,16 +4,22 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "start": "gulp dev",
-    "build": "gulp build"
+    "dev:assets": "gulp dev",
+    "dev:server": "nodemon --exec babel-node src/server.js --ignore 'assets'"
   },
   "dependencies": {
     "@babel/core": "^7.11.6",
+    "@babel/node": "^7.10.5",
+    "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
     "@babel/register": "^7.11.5",
     "autoprefixer": "^10.0.1",
+    "axios": "^0.20.0",
     "babelify": "^10.0.0",
+    "body-parser": "^1.19.0",
     "del": "^6.0.0",
+    "express": "^4.17.1",
+    "firebase": "^7.22.0",
     "gulp": "^4.0.2",
     "gulp-bro": "^2.0.0",
     "gulp-clean-css": "^4.3.0",
@@ -26,5 +32,8 @@
     "node-sass": "^4.14.1",
     "postcss": "^8.1.1",
     "uglifyify": "^5.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }

@@ -1,4 +1,7 @@
 extends ../layouts/layout
 
 block content
-  h1 Hello World!
+  form(action="/weekday", method="post")
+    input(type="submit" value="평일")
+  form(action="/weekend", method="post")
+    input(type="submit" value="주말")

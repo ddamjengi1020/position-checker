@@ -17,12 +17,12 @@ sass.compiler = compiler;
 const paths = {
   js: {
     src: "src/assets/js/main.js",
-    dest: "build",
+    dest: "dest",
     watch: "src/assets/js/**/*.js",
   },
   css: {
     src: "src/assets/scss/styles.scss",
-    dest: "build",
+    dest: "dest",
     watch: "src/assets/scss/**/*.scss",
   },
   html: {
@@ -35,14 +35,17 @@ const paths = {
   },
 };
 
-const clear = () => del("build");
+const clear = () => del("dest");
 
 const js = () =>
   src(paths.js.src)
     .pipe(
       bro({
         transform: [
-          babelify.configure({ presets: ["@babel/preset-env"] }),
+          babelify.configure({
+            presets: ["@babel/preset-env"],
+            plugins: ["@babel/plugin-transform-runtime"],
+          }),
           ["uglifyify", { global: true }],
         ],
       })
@@ -56,16 +59,16 @@ const css = () =>
     .pipe(cleanCSS())
     .pipe(dest(paths.css.dest));
 
-const html = () =>
-  src(paths.html.src)
-    .pipe(pugLinter({ reporter: "default" }))
-    .pipe(pug())
-    .pipe(dest(paths.html.dest));
+// const html = () =>
+//   src(paths.html.src)
+//     .pipe(pugLinter({ reporter: "default" }))
+//     .pipe(pug())
+//     .pipe(dest(paths.html.dest));
 
 const watchFiles = () => {
   watch(paths.js.watch, js);
   watch(paths.css.watch, css);
-  watch(paths.html.watch, html);
+  // watch(paths.html.watch, html);
 };
 
 const server = () =>
@@ -78,9 +81,9 @@ const server = () =>
     })
   );
 
-const devBundle = series([clear, js, css, html, server, watchFiles]);
+const devBundle = series([clear, js, css, watchFiles]);
 
-const buildBundle = series([clear, js, css, html]);
+const buildBundle = series([clear, js, css]);
 
 export const dev = devBundle;
 
