@@ -9,7 +9,7 @@
     "build:assets": "gulp build",
     "build:server": "babel src --out-dir build --ignore src/assets,src/static",
     "copyAll": "cp -R src/views build && cp -R src/static build",
-    "build": "yarn build:server && yarn build:assets && yarn copyAll",
+    "build": "npm run build:server && npm run build:assets && npm run copyAll",
     "start": "node build/server.js"
   },
   "dependencies": {
