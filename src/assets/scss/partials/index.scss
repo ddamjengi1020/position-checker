@@ -32,6 +32,7 @@ html {
       align-items: center;
       justify-content: space-around;
       .positionForm__submit {
+        margin-top: 20px;
         width: 100%;
         padding: 20px;
         border-radius: 10px;
@@ -42,7 +43,7 @@ html {
         font-family: "Black Han Sans", sans-serif;
         transition: all 0.1s linear;
       }
-      .positionForm__submit:focus {
+      .positionForm__submit:active {
         background-color: #f5b801;
       }
       .positionForm__column {
