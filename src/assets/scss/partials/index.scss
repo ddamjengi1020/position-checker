@@ -2,6 +2,7 @@ body,
 html {
   input,
   button {
+    -webkit-appearance: none;
     border-radius: 0;
   }
   -webkit-touch-callout: none;

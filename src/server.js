@@ -26,7 +26,7 @@ app.get("/", async (req, res) => {
       weekdayPosition,
       weekendPosition,
       morningdayposition,
-      morningendposition,
+      morningendPosition,
     } = existedGetData.data();
 
     if (currentDate !== new Date().toLocaleDateString("en-US")) {
@@ -38,7 +38,7 @@ app.get("/", async (req, res) => {
         weekdayPosition,
         weekendPosition,
         morningdayposition,
-        morningendposition
+        morningendPosition
       );
 
       await fireDB
@@ -49,7 +49,7 @@ app.get("/", async (req, res) => {
           weekdayPosition,
           weekendPosition,
           morningdayposition,
-          morningendposition,
+          morningendPosition,
         });
     }
 
