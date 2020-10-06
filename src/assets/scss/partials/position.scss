@@ -1,0 +1,37 @@
+.position {
+  height: 100%;
+  .goHome {
+    align-self: flex-start;
+    color: white;
+    font-size: 25px;
+    margin-bottom: -20px;
+  }
+  .positionResult {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    .position__column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .column__title {
+        font-size: 28px;
+        color: white;
+        margin-bottom: 15px;
+      }
+      .column__result {
+        font-family: "Black Han Sans", sans-serif;
+        font-size: 30px;
+        width: 140px;
+        height: 140px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 100%;
+        background-color: #f5b801;
+      }
+    }
+  }
+}

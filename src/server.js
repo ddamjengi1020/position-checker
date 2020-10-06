@@ -1,16 +1,17 @@
 import express from "express";
 import path from "path";
+import helmet from "helmet";
 import bodyParser from "body-parser";
 import { fireDB } from "./fbase";
 import { calcDay, calcPosition } from "./utils";
 
 const app = express();
-const PORT = 3500;
+const PORT = process.env.PORT || 4000;
 
 app.set("views", path.join(__dirname + "/views/screens"));
 app.set("view engine", "pug");
-
-app.use("/static", express.static("dest"));
+app.use(helmet());
+app.use("/static", express.static(path.join(__dirname + "/static")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -72,13 +73,13 @@ app.post("/position", async (req, res) => {
       weekdayPosition,
       weekendPosition,
       morningdayposition,
-      morningendposition,
+      morningendPosition,
     } = currentData.data();
     if (workingDay === "weekday") {
       myMorningPosition = morningdayposition[morningPositionNumber];
       myAfternoonPosition = weekdayPosition[afternoonPositionNumber];
-    } else {
-      myMorningPosition = morningendposition[morningPositionNumber];
+    } else if (workingDay === "weekend") {
+      myMorningPosition = morningendPosition[morningPositionNumber];
       myAfternoonPosition = weekendPosition[afternoonPositionNumber];
     }
     res.status(200);
@@ -88,10 +89,6 @@ app.post("/position", async (req, res) => {
     res.status(500);
     res.render("500");
   }
-});
-
-app.post("/weekend", async (req, res) => {
-  await fireDB.collection("checker").doc("dayOfTheWeek").get();
 });
 
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`));

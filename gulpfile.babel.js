@@ -1,5 +1,6 @@
 import { src, dest, series, watch } from "gulp";
 import del from "del";
+import path from "path";
 import bro from "gulp-bro";
 import babelify from "babelify";
 import sass from "gulp-sass";
@@ -17,13 +18,17 @@ sass.compiler = compiler;
 const paths = {
   js: {
     src: "src/assets/js/main.js",
-    dest: "dest",
+    dest: "src/static",
     watch: "src/assets/js/**/*.js",
   },
   css: {
     src: "src/assets/scss/styles.scss",
-    dest: "dest",
+    dest: "src/static",
     watch: "src/assets/scss/**/*.scss",
+  },
+  img: {
+    src: "src/assets/images/*.png",
+    dest: "src/static",
   },
   html: {
     src: "src/views/screens/*.pug",
@@ -35,7 +40,7 @@ const paths = {
   },
 };
 
-const clear = () => del("dest");
+const clear = () => del(path.join(__dirname + "static"));
 
 const js = () =>
   src(paths.js.src)
@@ -58,6 +63,7 @@ const css = () =>
     .pipe(postCss([autoprefixer({ overrideBrowserslist: ["last 1 version"] })]))
     .pipe(cleanCSS())
     .pipe(dest(paths.css.dest));
+const img = () => src(paths.img.src).pipe(dest(paths.img.dest));
 
 // const html = () =>
 //   src(paths.html.src)
@@ -81,9 +87,9 @@ const server = () =>
     })
   );
 
-const devBundle = series([clear, js, css, watchFiles]);
+const devBundle = series([clear, js, css, img, watchFiles]);
 
-const buildBundle = series([clear, js, css]);
+const buildBundle = series([clear, js, css, img]);
 
 export const dev = devBundle;
 

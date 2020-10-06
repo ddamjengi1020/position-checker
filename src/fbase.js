@@ -1,16 +1,19 @@
 import firebase from "firebase";
+import dotenv from "dotenv";
 // import "firebase/analytics";
 import "firebase/firestore";
 
+dotenv.config();
+
 const firebaseConfig = {
-  apiKey: "AIzaSyC_5rIbL45cgngrm3aa7PODKDkBuN5W5bU",
-  authDomain: "position-checker-501cb.firebaseapp.com",
-  databaseURL: "https://position-checker-501cb.firebaseio.com",
-  projectId: "position-checker-501cb",
-  storageBucket: "position-checker-501cb.appspot.com",
-  messagingSenderId: "438886295883",
-  appId: "1:438886295883:web:8be1587495bf6e0aa560ce",
-  measurementId: "G-CW2WLB41DW",
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  databaseURL: process.env.DATABASE_URL,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGING_SENDER_ID,
+  appId: process.env.APP_ID,
+  measurementId: process.env.MEASUREMENT_ID,
 };
 
 // Initialize Firebase

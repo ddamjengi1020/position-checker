@@ -5,9 +5,15 @@
   "license": "MIT",
   "scripts": {
     "dev:assets": "gulp dev",
-    "dev:server": "nodemon --exec babel-node src/server.js --ignore 'assets'"
+    "dev:server": "nodemon --exec babel-node src/server.js --ignore 'assets'",
+    "build:assets": "gulp build",
+    "build:server": "babel src --out-dir build --ignore src/assets,src/static",
+    "copyAll": "cp -R src/views build && cp -R src/static build",
+    "build": "yarn build:server && yarn build:assets && yarn copyAll",
+    "start": "node build/server.js"
   },
   "dependencies": {
+    "@babel/cli": "^7.11.6",
     "@babel/core": "^7.11.6",
     "@babel/node": "^7.10.5",
     "@babel/plugin-transform-runtime": "^7.11.5",
@@ -18,6 +24,7 @@
     "babelify": "^10.0.0",
     "body-parser": "^1.19.0",
     "del": "^6.0.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "firebase": "^7.22.0",
     "gulp": "^4.0.2",
@@ -29,6 +36,7 @@
     "gulp-rename": "^2.0.0",
     "gulp-sass": "^4.1.0",
     "gulp-webserver": "^0.9.1",
+    "helmet": "^4.1.1",
     "node-sass": "^4.14.1",
     "postcss": "^8.1.1",
     "uglifyify": "^5.0.2"
