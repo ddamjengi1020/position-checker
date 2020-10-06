@@ -11,7 +11,7 @@ html {
   -moz-user-select: none;
   -webkit-user-select: none;
   user-select: none;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: #ffffff00;
   overflow: hidden;
   font-family: "Nanum Pen Script", cursive;
   width: 100%;
@@ -41,7 +41,6 @@ html {
         font-size: 20px;
         font-family: "Black Han Sans", sans-serif;
         transition: all 0.1s linear;
-        -webkit-tap-highlight-color: transparent;
       }
       .positionForm__submit:focus {
         background-color: #f5b801;
