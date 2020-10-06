@@ -1,7 +1,30 @@
 extends ../layouts/layout
 
 block content
-  form(action="/weekday", method="post")
-    input(type="submit" value="평일")
-  form(action="/weekend", method="post")
-    input(type="submit" value="주말")
+  form(method="post" action="/position")
+    span What are you working day?
+    input(type="radio" id="weekday" name="workingDay" value="weekday")
+    label(for="weekday") 평일
+    input(type="radio" id="weekend" name="workingDay" value="weekend")
+    label(for="weekend") 주말
+    br
+    span What are you morning position number?
+    input(type="radio" id="one" name="morningPositionNumber" value="0")
+    label(for="one") 1
+    input(type="radio" id="two" name="morningPositionNumber" value="1")
+    label(for="two") 2
+    input(type="radio" id="three" name="morningPositionNumber" value="2")
+    label(for="three") 3
+
+    span What are you afternoon position number?
+    input(type="radio" id="one" name="afternoonPositionNumber" value="0")
+    label(for="one") 1
+    input(type="radio" id="two" name="afternoonPositionNumber" value="1")
+    label(for="two") 2
+    input(type="radio" id="three" name="afternoonPositionNumber" value="2")
+    label(for="three") 3
+    input(type="radio" id="three" name="afternoonPositionNumber" value="3")
+    label(for="three") 4
+
+    input(type="submit", value="submit")
+    

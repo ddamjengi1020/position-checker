@@ -3,7 +3,10 @@
 
 firebase DB model
 {
-date : 2020-10-4,
+currentDate : 2020-10-4,
+
+<!-- dayOfTheWeek: [Mon,Thu,Web,Thr,Fri,Sat,Sun] -->
+
 weekdayPosition: [설,홀,유,샌],
 weekendPosition: [설,홀,유,샌],
 }

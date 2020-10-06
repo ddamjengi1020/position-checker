@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import bodyParser from "body-parser";
 import { fireDB } from "./fbase";
+import { calcDay, calcPosition } from "./utils";
 
 const app = express();
 const PORT = 3500;
@@ -15,13 +16,44 @@ app.use(bodyParser.json());
 
 app.get("/", async (req, res) => {
   try {
-    const currentData = await fireDB
-      .collection("checker")
-      .doc("dayOfTheWeek")
+    const existedGetData = await fireDB
+      .collection("subway")
+      .doc("checker")
       .get();
+    const {
+      currentDate,
+      weekdayPosition,
+      weekendPosition,
+      morningdayposition,
+      morningendposition,
+    } = existedGetData.data();
+
+    if (currentDate !== new Date().toLocaleDateString("en-US")) {
+      const { pastDays, prevDateDays } = calcDay(currentDate);
+
+      calcPosition(
+        pastDays,
+        prevDateDays,
+        weekdayPosition,
+        weekendPosition,
+        morningdayposition,
+        morningendposition
+      );
+
+      await fireDB
+        .collection("subway")
+        .doc("checker")
+        .update({
+          currentDate: new Date().toLocaleDateString("en-US"),
+          weekdayPosition,
+          weekendPosition,
+          morningdayposition,
+          morningendposition,
+        });
+    }
 
     res.status(200);
-    res.render("index", { currentData: JSON.stringify(currentData.data()) });
+    res.render("index");
   } catch (error) {
     console.log(error);
     res.status(500);
@@ -29,20 +61,32 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.post("/", async (req, res) => {
+app.post("/position", async (req, res) => {
+  let myMorningPosition, myAfternoonPosition;
   const {
-    body: { newDate, weekdayPosition, weekendPosition },
+    body: { workingDay, morningPositionNumber, afternoonPositionNumber },
   } = req;
   try {
-    await fireDB.collection("checker").doc("dayOfTheWeek").update({
-      date: newDate,
+    const currentData = await fireDB.collection("subway").doc("checker").get();
+    const {
       weekdayPosition,
       weekendPosition,
-    });
+      morningdayposition,
+      morningendposition,
+    } = currentData.data();
+    if (workingDay === "weekday") {
+      myMorningPosition = morningdayposition[morningPositionNumber];
+      myAfternoonPosition = weekdayPosition[afternoonPositionNumber];
+    } else {
+      myMorningPosition = morningendposition[morningPositionNumber];
+      myAfternoonPosition = weekendPosition[afternoonPositionNumber];
+    }
+    res.status(200);
+    res.render("position", { myMorningPosition, myAfternoonPosition });
   } catch (error) {
     console.log(error);
-  } finally {
-    res.end();
+    res.status(500);
+    res.render("500");
   }
 });
 
