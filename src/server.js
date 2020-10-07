@@ -31,9 +31,8 @@ app.get("/", async (req, res) => {
       morningendPosition,
     } = existedGetData.data();
 
-    if (currentDate !== new Date().toLocaleDateString("en-US")) {
+    if (currentDate != new Date().toLocaleDateString("en-US")) {
       const { pastDays, prevDateDays } = calcDay(currentDate);
-
       calcPosition(
         pastDays,
         prevDateDays,
