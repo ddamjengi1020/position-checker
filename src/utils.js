@@ -23,21 +23,25 @@ const indexOfDays = (prevDateDays, dayOfTheWeeks, i) =>
 export const calcPosition = (
   pastDays,
   prevDateDays,
-  weekdayPosition,
-  weekendPosition,
-  morningdayposition,
-  morningendposition
+  lunchdayPosition,
+  lunchendPosition,
+  middledayPosition,
+  middleendPosition,
+  morningdayPosition,
+  morningendPosition
 ) => {
   for (let i = 0; i < pastDays; i++) {
     if (
       dayOfTheWeeks[indexOfDays(prevDateDays, dayOfTheWeeks, i)] !== "Sun" &&
       dayOfTheWeeks[indexOfDays(prevDateDays, dayOfTheWeeks, i)] !== "Sat"
     ) {
-      updateData(weekdayPosition);
-      updateData(morningdayposition);
+      updateData(morningdayPosition);
+      updateData(lunchdayPosition);
+      updateData(middledayPosition);
     } else {
-      updateData(weekendPosition);
-      updateData(morningendposition);
+      updateData(morningendPosition);
+      updateData(lunchendPosition);
+      updateData(middleendPosition);
     }
   }
 };

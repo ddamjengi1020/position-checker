@@ -5,30 +5,41 @@ block content
     .workingDay.positionForm__column
       .column__title 근무일
       .column__inputs
-        input.jsFirstInput(type="radio" id="weekday" name="workingDay" value="weekday" required)
+        input.jsFirstInput(type="radio" id="weekday" name="workingDay" value="weekday")
         label(for="weekday") 평일
         input(type="radio" id="weekend" name="workingDay" value="weekend")
         label(for="weekend") 주말
     .morning.positionForm__column
       .column__title (7시) 포지션 번호
       .column__inputs
-        input.jsFirstInput(type="radio" id="morningOne" name="morningPositionNumber" value="0" required)
+        input.jsFirstInput(type="radio" id="morningOne" name="morningPositionNumber" value="0")
         label(for="morningOne") 1
         input(type="radio" id="morningTwo" name="morningPositionNumber" value="1")
         label(for="morningTwo") 2
         input(type="radio" id="morningThree" name="morningPositionNumber" value="2")
         label(for="morningThree") 3
-    .afternoon.positionForm__column
+    .lunch.positionForm__column
       .column__title (11시) 포지션 번호
       .column__inputs
-        input.jsFirstInput(type="radio" id="afternoonOne" name="afternoonPositionNumber" value="0" required)
-        label(for="afternoonOne") 1
-        input(type="radio" id="afternoonTwo" name="afternoonPositionNumber" value="1")
-        label(for="afternoonTwo") 2
-        input(type="radio" id="afternoonThree" name="afternoonPositionNumber" value="2")
-        label(for="afternoonThree") 3
-        input(type="radio" id="afternoonFour" name="afternoonPositionNumber" value="3")
-        label(for="afternoonFour") 4
+        input.jsFirstInput(type="radio" id="lunchOne" name="lunchPositionNumber" value="0")
+        label(for="lunchOne") 1
+        input(type="radio" id="lunchTwo" name="lunchPositionNumber" value="1")
+        label(for="lunchTwo") 2
+        input(type="radio" id="lunchThree" name="lunchPositionNumber" value="2")
+        label(for="lunchThree") 3
+        input(type="radio" id="lunchFour" name="lunchPositionNumber" value="3")
+        label(for="lunchFour") 4
+    .middle.positionForm__column
+      .column__title (3시) 포지션 번호
+      .column__inputs
+        input.jsFirstInput(type="radio" id="middleOne" name="middlePositionNumber" value="0")
+        label(for="middleOne") 1
+        input(type="radio" id="middleTwo" name="middlePositionNumber" value="1")
+        label(for="middleTwo") 2
+        input(type="radio" id="middleThree" name="middlePositionNumber" value="2")
+        label(for="middleThree") 3
+        input(type="radio" id="middleFour" name="middlePositionNumber" value="3")
+        label(for="middleFour") 4
     br
-    button.positionForm__submit(type="submit" ontouchstart="") 포지션 확인
+    button.positionForm__submit(type="submit" ontouchstart="" unsafe-inline) 포지션 확인
     

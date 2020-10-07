@@ -23,9 +23,11 @@ app.get("/", async (req, res) => {
       .get();
     const {
       currentDate,
-      weekdayPosition,
-      weekendPosition,
-      morningdayposition,
+      lunchdayPosition,
+      lunchendPosition,
+      middledayPosition,
+      middleendPosition,
+      morningdayPosition,
       morningendPosition,
     } = existedGetData.data();
 
@@ -35,9 +37,11 @@ app.get("/", async (req, res) => {
       calcPosition(
         pastDays,
         prevDateDays,
-        weekdayPosition,
-        weekendPosition,
-        morningdayposition,
+        lunchdayPosition,
+        lunchendPosition,
+        middledayPosition,
+        middleendPosition,
+        morningdayPosition,
         morningendPosition
       );
 
@@ -46,9 +50,11 @@ app.get("/", async (req, res) => {
         .doc("checker")
         .update({
           currentDate: new Date().toLocaleDateString("en-US"),
-          weekdayPosition,
-          weekendPosition,
-          morningdayposition,
+          lunchdayPosition,
+          lunchendPosition,
+          middledayPosition,
+          middleendPosition,
+          morningdayPosition,
           morningendPosition,
         });
     }
@@ -63,27 +69,40 @@ app.get("/", async (req, res) => {
 });
 
 app.post("/position", async (req, res) => {
-  let myMorningPosition, myAfternoonPosition;
+  let myMorningPosition, myLunchPosition, myMiddlePosition;
   const {
-    body: { workingDay, morningPositionNumber, afternoonPositionNumber },
+    body: {
+      workingDay,
+      morningPositionNumber,
+      lunchPositionNumber,
+      middlePositionNumber,
+    },
   } = req;
   try {
     const currentData = await fireDB.collection("subway").doc("checker").get();
     const {
-      weekdayPosition,
-      weekendPosition,
-      morningdayposition,
+      lunchdayPosition,
+      lunchendPosition,
+      middledayPosition,
+      middleendPosition,
+      morningdayPosition,
       morningendPosition,
     } = currentData.data();
     if (workingDay === "weekday") {
-      myMorningPosition = morningdayposition[morningPositionNumber];
-      myAfternoonPosition = weekdayPosition[afternoonPositionNumber];
+      myMorningPosition = morningdayPosition[morningPositionNumber];
+      myLunchPosition = lunchdayPosition[lunchPositionNumber];
+      myMiddlePosition = middledayPosition[middlePositionNumber];
     } else if (workingDay === "weekend") {
       myMorningPosition = morningendPosition[morningPositionNumber];
-      myAfternoonPosition = weekendPosition[afternoonPositionNumber];
+      myLunchPosition = lunchendPosition[lunchPositionNumber];
+      myMiddlePosition = middleendPosition[middlePositionNumber];
     }
     res.status(200);
-    res.render("position", { myMorningPosition, myAfternoonPosition });
+    res.render("position", {
+      myMorningPosition,
+      myLunchPosition,
+      myMiddlePosition,
+    });
   } catch (error) {
     console.log(error);
     res.status(500);
