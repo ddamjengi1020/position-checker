@@ -10,7 +10,11 @@ const PORT = process.env.PORT || 4000;
 
 app.set("views", path.join(__dirname + "/views/screens"));
 app.set("view engine", "pug");
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
 app.use("/static", express.static(path.join(__dirname + "/static")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
