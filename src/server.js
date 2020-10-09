@@ -3,7 +3,7 @@ import path from "path";
 import helmet from "helmet";
 import bodyParser from "body-parser";
 import { fireDB } from "./fbase";
-import { calcDay, calcPosition } from "./utils";
+import { calcDay, calcPosition, currentGetTime } from "./utils";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -34,8 +34,10 @@ app.get("/", async (req, res) => {
       morningdayPosition,
       morningendPosition,
     } = existedGetData.data();
-    // 시차 +9 시간 한 변수 생성후 비교문 작성
-    if (currentDate != new Date().toLocaleDateString("en-US")) {
+
+    const serverDate = new Date(currentGetTime()).toLocaleDateString("en-US");
+
+    if (currentDate !== serverDate) {
       const { pastDays, prevDateDays } = calcDay(currentDate);
       calcPosition(
         pastDays,
@@ -48,22 +50,18 @@ app.get("/", async (req, res) => {
         morningendPosition
       );
 
-      await fireDB
-        .collection("subway")
-        .doc("checker")
-        .update({
-          currentDate: new Date().toLocaleDateString("en-US"), // +9시간한 변수(서버가 위치한 곳 시간임) 입력
-          lunchdayPosition,
-          lunchendPosition,
-          middledayPosition,
-          middleendPosition,
-          morningdayPosition,
-          morningendPosition,
-        });
+      await fireDB.collection("subway").doc("checker").update({
+        currentDate: serverDate,
+        lunchdayPosition,
+        lunchendPosition,
+        middledayPosition,
+        middleendPosition,
+        morningdayPosition,
+        morningendPosition,
+      });
     }
-    const testDate = new Date();
     res.status(200);
-    res.render("index", { testDate });
+    res.render("index");
   } catch (error) {
     console.log(error);
     res.status(500);

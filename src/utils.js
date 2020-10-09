@@ -45,3 +45,12 @@ export const calcPosition = (
     }
   }
 };
+
+export const currentGetTime = () => {
+  const getDate = new Date();
+  const convertToTime = getDate.getTime();
+  const NINEHOURS = 32400000;
+  const calculation = convertToTime + NINEHOURS;
+  const resultDate = new Date(calculation);
+  return process.env.PRODUCTMODE ? resultDate : getDate;
+};
