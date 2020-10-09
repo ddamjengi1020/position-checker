@@ -34,7 +34,7 @@ app.get("/", async (req, res) => {
       morningdayPosition,
       morningendPosition,
     } = existedGetData.data();
-
+    // 시차 +9 시간 한 변수 생성후 비교문 작성
     if (currentDate != new Date().toLocaleDateString("en-US")) {
       const { pastDays, prevDateDays } = calcDay(currentDate);
       calcPosition(
@@ -52,7 +52,7 @@ app.get("/", async (req, res) => {
         .collection("subway")
         .doc("checker")
         .update({
-          currentDate: new Date().toLocaleDateString("en-US"),
+          currentDate: new Date().toLocaleDateString("en-US"), // +9시간한 변수(서버가 위치한 곳 시간임) 입력
           lunchdayPosition,
           lunchendPosition,
           middledayPosition,
