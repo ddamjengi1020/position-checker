@@ -61,9 +61,9 @@ app.get("/", async (req, res) => {
           morningendPosition,
         });
     }
-
+    const testDate = new Date().toLocaleDateString("en-US");
     res.status(200);
-    res.render("index");
+    res.render("index", { testDate });
   } catch (error) {
     console.log(error);
     res.status(500);
