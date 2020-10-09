@@ -38,7 +38,7 @@ app.get("/", async (req, res) => {
     const serverDate = new Date(currentGetTime()).toLocaleDateString("en-US");
 
     if (currentDate !== serverDate) {
-      const { pastDays, prevDateDays } = calcDay(currentDate);
+      const { pastDays, prevDateDays } = calcDay(currentDate, serverDate);
       calcPosition(
         pastDays,
         prevDateDays,

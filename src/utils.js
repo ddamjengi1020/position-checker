@@ -1,7 +1,6 @@
-export const calcDay = (dbDate) => {
-  const today = new Date().toLocaleDateString("en-US");
+export const calcDay = (dbDate, serverDate) => {
   const prevDate = new Date(dbDate).getTime();
-  const nowDate = new Date(today).getTime();
+  const nowDate = new Date(serverDate).getTime();
   const pastDays = (nowDate - prevDate) / 1000 / 60 / 60 / 24;
   const prevDateDays = new Date(dbDate).getDay();
   return { pastDays, prevDateDays };
